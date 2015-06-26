@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+
+  <HEAD>
+    <meta charset="utf-8">
+    <meta name="description" content="Задание 1">
+    <title>РАБОТА</title>
+  </HEAD>
+
+  <BODY>
+    <p> Извлечь список категорий с количеством находящихся в них товаров, упорядоченный по количеству товаров. </p>
+    <p> 
+      <ul> categories:</ul>
+        <ol>id</ol>
+        <ol>title</ol>
+
+      <ul>items:</ul>
+        <ol>id</ol>
+        <ol>category_id</ol>
+        <ol>title</ol>
+
+      <?php
+
+        $dbh = mysql_connect('localhost', 'root', 'antontest12345');
+        mysql_select_db('test_bd');
+        
+	$query = "SELECT c.title, count(*) AS NUM
+                   FROM categories c
+                   LEFT JOIN items i
+                   ON c.id = i.category_id
+                   GROUP BY i.category_id
+                   ORDER BY num DESC ";
+
+	$res = mysql_query($query);
+	
+	mysql_close($dbh);
+	?>
+
+  </BODY>
